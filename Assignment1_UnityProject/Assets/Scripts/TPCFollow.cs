@@ -6,8 +6,8 @@ namespace PGGE
 {
     public abstract class TPCFollow : TPCBase
     {
-        public TPCFollow(Transform cameraTransform, Transform playerTransform)
-            : base(cameraTransform, playerTransform)
+        public TPCFollow(Transform cameraTransform, Transform playerTransform, LayerMask mask)
+            : base(cameraTransform, playerTransform,mask)
         {
         }
 

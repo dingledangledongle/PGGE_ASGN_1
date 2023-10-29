@@ -8,8 +8,8 @@ namespace PGGE
     {
         FixedTouchField mTouchField;
         private float angleX = 0.0f;
-        public TPCFollowIndependentRotation(Transform cameraTransform, Transform playerTransform)
-            : base(cameraTransform, playerTransform)
+        public TPCFollowIndependentRotation(Transform cameraTransform, Transform playerTransform, LayerMask mask)
+            : base(cameraTransform, playerTransform,mask)
         {
         }
 

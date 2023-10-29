@@ -31,6 +31,14 @@ public class ThirdPersonCamera : MonoBehaviour
     public CameraType mCameraType = CameraType.Follow_Track_Pos;
     Dictionary<CameraType, TPCBase> mThirdPersonCameraDict = new Dictionary<CameraType, TPCBase>();
 
+    //Setting up the layer the camera collides with
+    public LayerMask mask;
+
+    private void Awake()
+    {
+        Cursor.lockState = CursorLockMode.Locked;
+    }
+
     void Start()
     {
         // Set to CameraConstants class so that other objects can use.
@@ -47,15 +55,15 @@ public class ThirdPersonCamera : MonoBehaviour
         //mThirdPersonCamera = new TPCFollowTrackPositionAndRotation(transform, mPlayer);
         //mThirdPersonCamera = new TPCTopDown(transform, mPlayer);
 
-        mThirdPersonCameraDict.Add(CameraType.Track, new TPCTrack(transform, mPlayer));
-        mThirdPersonCameraDict.Add(CameraType.Follow_Track_Pos, new TPCFollowTrackPosition(transform, mPlayer));
-        mThirdPersonCameraDict.Add(CameraType.Follow_Track_Pos_Rot, new TPCFollowTrackPositionAndRotation(transform, mPlayer));
-        mThirdPersonCameraDict.Add(CameraType.Topdown, new TPCTopDown(transform, mPlayer));
+        mThirdPersonCameraDict.Add(CameraType.Track, new TPCTrack(transform, mPlayer,mask));
+        mThirdPersonCameraDict.Add(CameraType.Follow_Track_Pos, new TPCFollowTrackPosition(transform, mPlayer, mask));
+        mThirdPersonCameraDict.Add(CameraType.Follow_Track_Pos_Rot, new TPCFollowTrackPositionAndRotation(transform, mPlayer, mask));
+        mThirdPersonCameraDict.Add(CameraType.Topdown, new TPCTopDown(transform, mPlayer, mask));
 
 
         // We instantiate and add the new third-person camera to the dictionary
 #if UNITY_STANDALONE
-        mThirdPersonCameraDict.Add(CameraType.Follow_Independent, new TPCFollowIndependentRotation(transform, mPlayer));
+        mThirdPersonCameraDict.Add(CameraType.Follow_Independent, new TPCFollowIndependentRotation(transform, mPlayer, mask));
 #endif
 #if UNITY_ANDROID
         mThirdPersonCameraDict.Add(CameraType.Follow_Independent, new TPCFollowIndependentRotation(transform, mPlayer, mTouchField));
