@@ -6,8 +6,8 @@ namespace PGGE
 {
     public class TPCTopDown : TPCBase
     {
-        public TPCTopDown(Transform cameraTransform, Transform playerTransform, LayerMask mask)
-            : base(cameraTransform, playerTransform,mask)
+        public TPCTopDown(Transform cameraTransform, Transform playerTransform, LayerMask mask, Vector3 offset)
+            : base(cameraTransform, playerTransform,mask,offset)
         {
         }
 

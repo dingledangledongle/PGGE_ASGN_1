@@ -55,15 +55,15 @@ public class ThirdPersonCamera : MonoBehaviour
         //mThirdPersonCamera = new TPCFollowTrackPositionAndRotation(transform, mPlayer);
         //mThirdPersonCamera = new TPCTopDown(transform, mPlayer);
 
-        mThirdPersonCameraDict.Add(CameraType.Track, new TPCTrack(transform, mPlayer,mask));
-        mThirdPersonCameraDict.Add(CameraType.Follow_Track_Pos, new TPCFollowTrackPosition(transform, mPlayer, mask));
-        mThirdPersonCameraDict.Add(CameraType.Follow_Track_Pos_Rot, new TPCFollowTrackPositionAndRotation(transform, mPlayer, mask));
-        mThirdPersonCameraDict.Add(CameraType.Topdown, new TPCTopDown(transform, mPlayer, mask));
+        mThirdPersonCameraDict.Add(CameraType.Track, new TPCTrack(transform, mPlayer,mask,mPositionOffset));
+        mThirdPersonCameraDict.Add(CameraType.Follow_Track_Pos, new TPCFollowTrackPosition(transform, mPlayer, mask, mPositionOffset));
+        mThirdPersonCameraDict.Add(CameraType.Follow_Track_Pos_Rot, new TPCFollowTrackPositionAndRotation(transform, mPlayer, mask, mPositionOffset));
+        mThirdPersonCameraDict.Add(CameraType.Topdown, new TPCTopDown(transform, mPlayer, mask, mPositionOffset));
 
 
         // We instantiate and add the new third-person camera to the dictionary
 #if UNITY_STANDALONE
-        mThirdPersonCameraDict.Add(CameraType.Follow_Independent, new TPCFollowIndependentRotation(transform, mPlayer, mask));
+        mThirdPersonCameraDict.Add(CameraType.Follow_Independent, new TPCFollowIndependentRotation(transform, mPlayer, mask,mPositionOffset));
 #endif
 #if UNITY_ANDROID
         mThirdPersonCameraDict.Add(CameraType.Follow_Independent, new TPCFollowIndependentRotation(transform, mPlayer, mTouchField));

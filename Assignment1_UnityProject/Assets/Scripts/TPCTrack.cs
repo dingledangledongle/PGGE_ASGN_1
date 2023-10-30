@@ -6,8 +6,8 @@ namespace PGGE
 {
     public class TPCTrack : TPCBase
     {
-        public TPCTrack(Transform cameraTransform, Transform playerTransform,LayerMask mask)
-            : base(cameraTransform, playerTransform,mask)
+        public TPCTrack(Transform cameraTransform, Transform playerTransform,LayerMask mask, Vector3 offset)
+            : base(cameraTransform, playerTransform,mask,offset)
         {
         }
 
