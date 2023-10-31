@@ -95,6 +95,22 @@ public class Player : MonoBehaviour
     {
       mAttackButtons[2] = false;
     }
+
+    if (Input.GetKey(KeyCode.Alpha1))
+    {
+       mAnimator.Play("Emote1");
+    }
+
+    if (Input.GetKey(KeyCode.Alpha2))
+    {
+        mAnimator.Play("Emote2");
+    }
+
+    if (Input.GetKey(KeyCode.Alpha3))
+    {
+        mAnimator.Play("Emote3");
+    }
+
   }
 
   public void Aim()

@@ -21,10 +21,12 @@ public class PlayerMovement : MonoBehaviour
     private float hInput;
     private float vInput;
     private float speed;
+    private float currentAnimationFloat;
     private bool jump = false;
     private bool crouch = false;
     public float mGravity = -30.0f;
     public float mJumpHeight = 1.0f;
+
 
     private Vector3 mVelocity = new Vector3(0.0f, 0.0f, 0.0f);
 
@@ -105,7 +107,9 @@ public class PlayerMovement : MonoBehaviour
 
         mCharacterController.Move(forward * vInput * speed * Time.deltaTime);
         mAnimator.SetFloat("PosX", 0);
-        mAnimator.SetFloat("PosZ", vInput * speed / (2.0f * mWalkSpeed));
+        float targetAnimationFloat = vInput * speed / (2.0f * mWalkSpeed);
+        currentAnimationFloat = Mathf.Lerp(currentAnimationFloat, targetAnimationFloat, 0.05f);
+        mAnimator.SetFloat("PosZ", currentAnimationFloat);
 
         if(jump)
         {
