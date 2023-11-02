@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class FootStepController : MonoBehaviour
 {
-    public AudioClip[] currentGroundFootSteps; //this array is being updated in Player.cs in DetectGroundType()
+    AudioClip[] currentGroundFootSteps; //this array is being updated in Player.cs in DetectGroundType()
     public AudioSource playerAudioSource;
     public Animator playerAnimator;
     [SerializeField]
@@ -57,6 +57,7 @@ public class FootStepController : MonoBehaviour
         //works but not very consistent
         Physics.Raycast(transform.position, -transform.up, out RaycastHit hit, 1, groundMask); //cast ray towards the ground to detect the ground type
         Debug.DrawRay(transform.position, -transform.up * 1, Color.cyan,0.1f);
+
         switch (hit.collider.tag) //switches the sound array depending on the ground type
         {
             case "Concrete":

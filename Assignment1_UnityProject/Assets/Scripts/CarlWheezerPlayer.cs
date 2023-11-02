@@ -64,19 +64,16 @@ public class CarlWheezerPlayer: Player
         if (Input.GetKey(KeyCode.Alpha1))
         {
             mAnimator.SetTrigger("Emote1");
-            mAnimator.Play("Emote1");
         }
 
         if (Input.GetKey(KeyCode.Alpha2))
         {
             mAnimator.SetTrigger("Emote2");
-            mAnimator.Play("Emote2");
         }
 
         if (Input.GetKey(KeyCode.Alpha3))
         {
             mAnimator.SetTrigger("Emote3");
-            mAnimator.Play("Emote3");
         }
 
     }

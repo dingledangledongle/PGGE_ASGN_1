@@ -1125,7 +1125,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: df8ca94954a8e304ea9673349d398e5e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentGroundFootSteps: []
   playerAudioSource: {fileID: 2145642072}
   playerAnimator: {fileID: 543772160}
   concreteFootSteps:
@@ -1172,7 +1171,7 @@ GameObject:
   - component: {fileID: 604301423}
   m_Layer: 9
   m_Name: Floor
-  m_TagString: Concrete
+  m_TagString: Dirt
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1188,7 +1187,7 @@ MeshCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 4
-  m_Convex: 1
+  m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!23 &604301424
@@ -1674,7 +1673,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &866485086
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2122,8 +2121,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e1312bf48c396a549b13b7d89665949c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mPlayer: {fileID: 2145642068}
-  mPositionOffset: {x: 1, y: 2.5, z: -2.5}
+  mPlayer: {fileID: 866485089}
+  mPositionOffset: {x: 1, y: 2.5, z: -4.5}
   mAngleOffset: {x: 0, y: 0, z: 0}
   mDamping: 10
   mMinPitch: -30
@@ -2931,7 +2930,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &2145642068
 Transform:
   m_ObjectHideFlags: 0
@@ -2940,7 +2939,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2145642067}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 4.59, y: 0, z: 3.03}
+  m_LocalPosition: {x: 4.59, y: 0.1, z: 3.03}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 529669892}
