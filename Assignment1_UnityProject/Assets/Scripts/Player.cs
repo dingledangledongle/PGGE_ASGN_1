@@ -6,64 +6,64 @@ using PGGE;
 
 public class Player : MonoBehaviour
 {
-  [HideInInspector]
-  public FSM mFsm = new FSM();
-  public Animator mAnimator;
-  public PlayerMovement mPlayerMovement;
+    [HideInInspector]
+    public FSM mFsm = new FSM();
+    public Animator mAnimator;
+    public PlayerMovement mPlayerMovement;
 
-  // This is the maximum number of bullets that the player 
-  // needs to fire before reloading.
-  public int mMaxAmunitionBeforeReload = 40;
+    // This is the maximum number of bullets that the player 
+    // needs to fire before reloading.
+    public int mMaxAmunitionBeforeReload = 40;
 
-  // This is the total number of bullets that the 
-  // player has.
-  [HideInInspector]
-  public int mAmunitionCount = 100;
+    // This is the total number of bullets that the 
+    // player has.
+    [HideInInspector]
+    public int mAmunitionCount = 100;
 
-  // This is the count of bullets in the magazine.
-  [HideInInspector]
-  public int mBulletsInMagazine = 40;
+    // This is the count of bullets in the magazine.
+    [HideInInspector]
+    public int mBulletsInMagazine = 40;
 
-  [HideInInspector]
-  public bool[] mAttackButtons = new bool[3];
+    [HideInInspector]
+    public bool[] mAttackButtons = new bool[3];
 
-  public Transform mGunTransform;
-  public LayerMask mPlayerMask;
-  public Canvas mCanvas;
-  public RectTransform mCrossHair;
-  public AudioSource mAudioSource;
-  public AudioClip mAudioClipGunShot;
-  public AudioClip mAudioClipReload;
+    public Transform mGunTransform;
+    public LayerMask mPlayerMask;
+    public Canvas mCanvas;
+    public RectTransform mCrossHair;
+    public AudioSource mAudioSource;
+    public AudioClip mAudioClipGunShot;
+    public AudioClip mAudioClipReload;
 
+    public GameObject mBulletPrefab;
+    public float mBulletSpeed = 10.0f;
 
-  public GameObject mBulletPrefab;
-  public float mBulletSpeed = 10.0f;
-
-  public int[] RoundsPerSecond = new int[3];
-  bool[] mFiring = new bool[3];
+    public int[] RoundsPerSecond = new int[3];
+    bool[] mFiring = new bool[3];
 
 
   // Start is called before the first frame update
   void Start()
   {
-    mFsm.Add(new PlayerState_MOVEMENT(this));
-    mFsm.Add(new PlayerState_ATTACK(this));
-    mFsm.Add(new PlayerState_RELOAD(this));
-    mFsm.SetCurrentState((int)PlayerStateType.MOVEMENT);
+        mFsm.Add(new PlayerState_MOVEMENT(this));
+        mFsm.Add(new PlayerState_ATTACK(this));
+        mFsm.Add(new PlayerState_RELOAD(this));
+        mFsm.SetCurrentState((int)PlayerStateType.MOVEMENT);
 
-    PlayerConstants.PlayerMask = mPlayerMask;
+        PlayerConstants.PlayerMask = mPlayerMask;
   }
 
   void Update()
   {
+
     mFsm.Update();
     Aim();
 
-    // For Student ----------------------------------------------------//
-    // Implement the logic of button clicks for shooting. 
-    //-----------------------------------------------------------------//
+        // For Student ----------------------------------------------------//
+        // Implement the logic of button clicks for shooting. 
+        //-----------------------------------------------------------------//
 
-    if (Input.GetButton("Fire1"))
+        if (Input.GetButton("Fire1"))
     {
       mAttackButtons[0] = true;
       mAttackButtons[1] = false;
@@ -95,22 +95,6 @@ public class Player : MonoBehaviour
     {
       mAttackButtons[2] = false;
     }
-
-    if (Input.GetKey(KeyCode.Alpha1))
-    {
-       mAnimator.Play("Emote1");
-    }
-
-    if (Input.GetKey(KeyCode.Alpha2))
-    {
-        mAnimator.Play("Emote2");
-    }
-
-    if (Input.GetKey(KeyCode.Alpha3))
-    {
-        mAnimator.Play("Emote3");
-    }
-
   }
 
   public void Aim()
@@ -241,4 +225,5 @@ public class Player : MonoBehaviour
     mFiring[id] = false;
     mBulletsInMagazine -= 1;
   }
+
 }
