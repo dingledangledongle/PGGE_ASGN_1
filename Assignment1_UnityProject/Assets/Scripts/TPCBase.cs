@@ -40,21 +40,23 @@ namespace PGGE
 
         public void RepositionCamera()
         {
-            // check collision between camera and the player.
-            // find the nearest collision point to the player
-            // shift the camera position to the nearest intersected point
+            //get the offset of the player's height for the camera
+            Vector3 yOffset = new Vector3(0, mPlayerTransform.GetComponent<CharacterController>().height, 0);
 
-            float distance = Vector3.Distance(mPlayerTransform.position, mCameraTransform.position);
-            Vector3 direction = (mCameraTransform.position - mPlayerTransform.position).normalized;
+            //get distance between the camera and (player position + offset)
+            float distance = Vector3.Distance(mPlayerTransform.position + yOffset, mCameraTransform.position);
 
-            RaycastHit hit;
+            //get the direction from the player+offset to camera
+            Vector3 direction = (mCameraTransform.position - (mPlayerTransform.position + yOffset)).normalized; // player to camera direction
+
             //cast a ray from the player to the camera to detect if theres an obstruction between them
-            bool rayCast = Physics.Raycast(mPlayerTransform.position, direction, out hit, distance, mask);
-  
-            Vector3 offset = rayCast? offset = hit.point - mPlayerTransform.position : originalOffset;
+            bool rayCast = Physics.Raycast(mPlayerTransform.position + yOffset, direction, out RaycastHit hit, distance, mask);
 
+            //Debug.DrawRay(mPlayerTransform.position + yOffset, direction * distance, Color.red);
 
-            CameraConstants.CameraPositionOffset = Vector3.Lerp(CameraConstants.CameraPositionOffset, offset, Time.deltaTime);
+            //if the ray hits an obstruction, the camera's position would move to where the ray hits
+            if(rayCast)
+                mCameraTransform.position = hit.point;
         }
         public abstract void Update();
     }

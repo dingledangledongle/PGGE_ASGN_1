@@ -60,6 +60,7 @@ public class PlayerMovement : MonoBehaviour
     #endif
 
         speed = mWalkSpeed;
+
         if (Input.GetKey(KeyCode.LeftShift))
         {
             speed = mWalkSpeed * 2.0f;
@@ -107,10 +108,8 @@ public class PlayerMovement : MonoBehaviour
 
         mCharacterController.Move(forward * vInput * speed * Time.deltaTime);
         mAnimator.SetFloat("PosX", 0);
-        float targetAnimationFloat = vInput * speed / (2.0f * mWalkSpeed);
-        currentAnimationFloat = Mathf.Lerp(currentAnimationFloat, targetAnimationFloat, 0.05f);
-        mAnimator.SetFloat("PosZ", currentAnimationFloat);
-
+        mAnimator.SetFloat("PosZ", vInput * speed / (2.0f * mWalkSpeed));
+        
         if(jump)
         {
             Jump();
