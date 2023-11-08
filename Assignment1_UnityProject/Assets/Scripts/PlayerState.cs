@@ -73,26 +73,28 @@ public class PlayerState_MOVEMENT : PlayerState
 
         mPlayer.Move();
 
-        for (int i = 0; i < mPlayer.mAttackButtons.Length; ++i)
-        {
-            if (mPlayer.mAttackButtons[i])
-            {
-                if (mPlayer.mBulletsInMagazine > 0)
-                {
-                    PlayerState_ATTACK attack =
-                  (PlayerState_ATTACK)mFsm.GetState(
-                            (int)PlayerStateType.ATTACK);
 
-                    attack.AttackID = i;
-                    mPlayer.mFsm.SetCurrentState(
-                        (int)PlayerStateType.ATTACK);
-                }
-                else
+        for (int i = 0; i < mPlayer.mAttackButtons.Length; ++i)
+            {
+                if (mPlayer.mAttackButtons[i])
                 {
-                    Debug.Log("No more ammo left");
+                    if (mPlayer.mBulletsInMagazine > 0)
+                    {
+                        PlayerState_ATTACK attack =
+                      (PlayerState_ATTACK)mFsm.GetState(
+                                (int)PlayerStateType.ATTACK);
+
+                        attack.AttackID = i;
+                        mPlayer.mFsm.SetCurrentState(
+                            (int)PlayerStateType.ATTACK);
+                    }
+                    else
+                    {
+                        Debug.Log("No more ammo left");
+                    }
                 }
             }
-        }
+        
     }
 
     public override void FixedUpdate()
@@ -167,8 +169,7 @@ public class PlayerState_ATTACK : PlayerState
         // Fire buttons.
         // Discuss with your tutor if you find any difficulties
         // in implementing this section.        
-        
-        // For tutor - start ---------------------------------------------//
+
         Debug.Log("Ammo count: " + mPlayer.mAmunitionCount + ", In Magazine: " + mPlayer.mBulletsInMagazine);
         if (mPlayer.mBulletsInMagazine == 0 && mPlayer.mAmunitionCount > 0)
         {
@@ -193,8 +194,8 @@ public class PlayerState_ATTACK : PlayerState
             mPlayer.mAnimator.SetBool(mAttackName, false);
             mPlayer.mFsm.SetCurrentState((int)PlayerStateType.MOVEMENT);
         }
-        // For tutor - end   ---------------------------------------------//
     }
+
 }
 
 public class PlayerState_RELOAD : PlayerState
@@ -240,3 +241,4 @@ public class PlayerState_RELOAD : PlayerState
     {
     }
 }
+

@@ -12,8 +12,8 @@ public class FootStepController : MonoBehaviour
     , sandFootSteps, woodFootSteps;
     public LayerMask groundMask;
 
-    float minWalkVol = 0.3f;
-    float maxWalkVol = 0.5f;
+    float minWalkVol = 0.1f;
+    float maxWalkVol = 0.3f;
     float minWalkPitch = 0.5f;
     float maxWalkPitch = 1f;
 
@@ -55,9 +55,10 @@ public class FootStepController : MonoBehaviour
     void DetectGroundType()
     {
         //works but not very consistent
+        //Physics.SphereCast(transform.position, 2, -transform.up, out RaycastHit hit, 2, groundMask);
         Physics.Raycast(transform.position, -transform.up, out RaycastHit hit, 1, groundMask); //cast ray towards the ground to detect the ground type
         Debug.DrawRay(transform.position, -transform.up * 1, Color.cyan,0.1f);
-
+        Debug.Log(hit.collider.tag);
         switch (hit.collider.tag) //switches the sound array depending on the ground type
         {
             case "Concrete":

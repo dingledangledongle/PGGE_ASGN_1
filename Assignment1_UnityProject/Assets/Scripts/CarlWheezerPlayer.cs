@@ -23,7 +23,7 @@ public class CarlWheezerPlayer: Player
     {
         mFsm.Update();
         Aim();
-        
+
         // For Student ----------------------------------------------------//
         // Implement the logic of button clicks for shooting. 
         //-----------------------------------------------------------------//
@@ -75,54 +75,5 @@ public class CarlWheezerPlayer: Player
         {
             mAnimator.SetTrigger("Emote3");
         }
-
-    }
-
-    public new void NoAmmo()
-    {
-
-    }
-
-    public new void Reload()
-    {
-        StartCoroutine(Coroutine_DelayReloadSound());
-    }
-
-    IEnumerator Coroutine_DelayReloadSound(float duration = 1.0f)
-    {
-        yield return new WaitForSeconds(duration);
-
-        mAudioSource.PlayOneShot(mAudioClipReload);
-    }
-
-    public new void Fire(int id)
-    {
-        if (mFiring[id] == false)
-        {
-            StartCoroutine(Coroutine_Firing(id));
-        }
-    }
-
-    public new void FireBullet()
-    {
-        if (mBulletPrefab == null) return;
-
-        Vector3 dir = -mGunTransform.right.normalized;
-        Vector3 firePoint = mGunTransform.transform.position + dir *
-            1.2f - mGunTransform.forward * 0.1f;
-        GameObject bullet = Instantiate(mBulletPrefab, firePoint,
-            Quaternion.LookRotation(dir) * Quaternion.AngleAxis(90.0f, Vector3.right));
-
-        bullet.GetComponent<Rigidbody>().AddForce(dir * mBulletSpeed, ForceMode.Impulse);
-        mAudioSource.PlayOneShot(mAudioClipGunShot);
-    }
-
-    IEnumerator Coroutine_Firing(int id)
-    {
-        mFiring[id] = true;
-        FireBullet();
-        yield return new WaitForSeconds(1.0f / RoundsPerSecond[id]);
-        mFiring[id] = false;
-        mBulletsInMagazine -= 1;
     }
 }
