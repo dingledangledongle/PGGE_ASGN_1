@@ -8,6 +8,7 @@ public enum PlayerStateType
     MOVEMENT = 0,
     ATTACK,
     RELOAD,
+
 }
 
 public class PlayerState : FSMState
@@ -241,4 +242,5 @@ public class PlayerState_RELOAD : PlayerState
     {
     }
 }
+
 
