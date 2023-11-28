@@ -33,8 +33,11 @@ public class CarlWheezerPlayer : MonoBehaviour
         {
             isAttacking = true;
         }
-        
 
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            mAnimator.SetTrigger("Recharge");
+        }
 
         //emotes
         if (Input.GetKey(KeyCode.Alpha1))

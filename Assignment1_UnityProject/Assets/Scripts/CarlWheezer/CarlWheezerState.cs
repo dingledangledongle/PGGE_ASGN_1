@@ -101,7 +101,7 @@ public class CWState_ATTACK : CarlWheezerState
             mPlayer.mFsm.SetCurrentState((int)CWStateType.MOVEMENT);
         }
 
-        if (attackSeq == 2)
+        if (attackSeq == 3)
         {
             //restart sequence
             attackSeq = 0;

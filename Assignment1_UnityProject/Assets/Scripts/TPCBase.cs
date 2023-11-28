@@ -10,8 +10,6 @@ namespace PGGE
         protected Transform mCameraTransform;
         protected Transform mPlayerTransform;
         protected LayerMask mask;
-        protected Vector3 originalOffset;
-        protected float originalDist;
 
         public Transform CameraTransform
         {
@@ -33,8 +31,6 @@ namespace PGGE
             mCameraTransform = cameraTransform;
             mPlayerTransform = playerTransform;
             mask = layerMask;
-            originalOffset = offset;
-            originalDist = Vector3.Distance(mPlayerTransform.position, mCameraTransform.position);
 
         }
 

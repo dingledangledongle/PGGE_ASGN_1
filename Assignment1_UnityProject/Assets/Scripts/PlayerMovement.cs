@@ -26,7 +26,7 @@ public class PlayerMovement : MonoBehaviour
     private bool crouch = false;
     public float mGravity = -30.0f;
     public float mJumpHeight = 1.0f;
-
+    private float lerpValue = 0;
 
     private Vector3 mVelocity = new Vector3(0.0f, 0.0f, 0.0f);
 
@@ -64,6 +64,11 @@ public class PlayerMovement : MonoBehaviour
         if (Input.GetKey(KeyCode.LeftShift))
         {
             speed = mWalkSpeed * 2.0f;
+            lerpValue = Mathf.Lerp(lerpValue,0.9f, 0.1f);
+        }
+        else
+        {
+            lerpValue = Mathf.Lerp(lerpValue,vInput/2,0.1f);
         }
 
         if (Input.GetKeyDown(KeyCode.Space))
@@ -108,9 +113,10 @@ public class PlayerMovement : MonoBehaviour
 
         mCharacterController.Move(forward * vInput * speed * Time.deltaTime);
         mAnimator.SetFloat("PosX", 0);
-        mAnimator.SetFloat("PosZ", vInput * speed / (2.0f * mWalkSpeed));
-        
-        if(jump)
+        mAnimator.SetFloat("PosZ", lerpValue);
+        //vInput * speed / (2.0f * mWalkSpeed)
+
+        if (jump)
         {
             Jump();
             jump = false;
