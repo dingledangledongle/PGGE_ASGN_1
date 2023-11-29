@@ -49,6 +49,7 @@ public class CWState_MOVEMENT : CarlWheezerState
 
     public override void Enter()
     {
+        Debug.Log("enter movement");
         base.Enter();
     }
 
@@ -57,11 +58,11 @@ public class CWState_MOVEMENT : CarlWheezerState
         mPlayer.Move();
 
         //enter attack state
-        if (mPlayer.isAttacking)
+        if (Input.GetButtonDown("Fire1"))
         {
-            mPlayer.mFsm.SetCurrentState((int)CWStateType.ATTACK);
+            mPlayer.canAttack = true;
+            mFsm.SetCurrentState((int)CWStateType.ATTACK);
         }
-
 
         base.Update();
     }
@@ -77,6 +78,7 @@ public class CWState_ATTACK : CarlWheezerState
     string attackName;
     int attackSeq;
     float timer;
+    bool desireAttack;
 
     public CWState_ATTACK(CarlWheezerPlayer player) : base(player)
     {
@@ -87,45 +89,51 @@ public class CWState_ATTACK : CarlWheezerState
     {
         timer = 0;
         attackSeq = 0;
-        Debug.Log("enter attack");
+        mPlayer.currentAttackSeq = attackSeq;
+        desireAttack = true;
         base.Enter();
     }
-    public override void Exit()
-    {
-        base.Exit();
-    }
+
     public override void Update()
     {
-        if (timer > 3)
+        //timer to exit the attack if nothing is done
+        if (timer > 1.5)
         {
             //exit the attack
             mPlayer.mFsm.SetCurrentState((int)CWStateType.MOVEMENT);
         }
 
+        //check if it is last in the sequence
         if (attackSeq == 3)
         {
             //restart sequence
             attackSeq = 0;
         }
 
-        //mPlayer.currentAttackSeq = attackSeq;
+        if (Input.GetButtonDown("Fire1"))
+            desireAttack = true;
 
-        if (mPlayer.isAttacking && mPlayer.canAttack)
+        //attacking logic
+        if (desireAttack && mPlayer.canAttack)
         {
-            Debug.Log(attackSeq);
             attackName = "Attack" + attackSeq;
+            mPlayer.currentAttackSeq = attackSeq;
             mPlayer.mAnimator.SetTrigger(attackName);
             mPlayer.canAttack = false;
+            desireAttack = false;
             attackSeq++;
             timer = 0;
-            mPlayer.isAttacking = false;
         }
 
-
-        timer += Time.fixedDeltaTime;
         base.Update();
     }
 
+    public override void FixedUpdate()
+    {
+        //increment the timer
+        timer += Time.fixedDeltaTime;
+        base.FixedUpdate();
+    }
 }
 
 public class CWState_RECHARGE : CarlWheezerState
@@ -139,18 +147,24 @@ public class CWState_RECHARGE : CarlWheezerState
     {
         mPlayer.mAnimator.SetBool("Recharge", true);
         mPlayer.isRecharging = true;
-        Debug.Log("enter recharge");
         base.Enter();
     }
 
     public override void Update()
     {
+        //check if the player is still recharging
         if (!mPlayer.isRecharging)
         {
             mPlayer.mAnimator.SetBool("Recharge", false);
             mFsm.SetCurrentState((int)CWStateType.MOVEMENT);
         }
-        //base.Update();
+
+        //check if the player wants to attack and switches to attack state
+        if (Input.GetButtonDown("Fire1"))
+        {
+            mPlayer.canAttack = true;
+            mFsm.SetCurrentState((int)CWStateType.ATTACK);
+        }
     }
 
 }
@@ -162,9 +176,65 @@ public class CWState_EMOTE : CarlWheezerState
         mId = (int)(CWStateType.EMOTE);
     }
 
+    int emoteNumber;
+
     public override void Enter()
     {
+        //check which button is pressed
+        if (Input.GetKeyDown(KeyCode.Alpha1))
+        {
+            mPlayer.mAnimator.SetBool("Emote1",true);
+            emoteNumber = 1;
+        }
 
+        if (Input.GetKeyDown(KeyCode.Alpha2))
+        {
+            mPlayer.mAnimator.SetBool("Emote2",true);
+            emoteNumber = 2;
+        }
+
+        if (Input.GetKeyDown(KeyCode.Alpha3))
+        {
+            mPlayer.mAnimator.SetBool("Emote3",true);
+            emoteNumber = 3;
+        }
+
+        mPlayer.endEmote = false;
+        mPlayer.currentEmote = emoteNumber;
         base.Enter();
+    }
+
+    public override void Update()
+    {
+        //cancel emote if player wants to attack
+        if (Input.GetButtonDown("Fire1"))
+        {
+            mPlayer.canAttack = true;
+            mFsm.SetCurrentState((int)CWStateType.ATTACK);
+        }
+
+        //cancel emote if player wants to move
+        if (mPlayer.mPlayerMovement.isMoving) 
+        {
+            mFsm.SetCurrentState((int)CWStateType.MOVEMENT);
+        }
+
+        //switch to movement state once it ends
+        if (mPlayer.endEmote)
+        {
+            mFsm.SetCurrentState((int)CWStateType.MOVEMENT);
+        }
+
+        mPlayer.mPlayerMovement.HandleInputs();
+        base.Update();
+    }
+
+    public override void Exit()
+    {
+        string name = "Emote" + emoteNumber;
+
+        mPlayer.mAnimator.SetBool(name, false);
+        mPlayer.isEmoting = false;
+        base.Exit();
     }
 }

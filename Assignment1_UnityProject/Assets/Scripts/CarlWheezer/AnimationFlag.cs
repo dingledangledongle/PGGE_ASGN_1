@@ -4,11 +4,13 @@ using UnityEngine;
 
 public class AnimationFlag : MonoBehaviour
 {
+    //getting references to the player
     public Animator animator;
     public CarlWheezerPlayer player;
+
+    //method is called from animation events
     void AnimationEndFlag()
     {
-        Debug.Log("animation flag");
         if (CheckAnimation("Recharge"))
         {
             player.isRecharging = false;
@@ -16,8 +18,12 @@ public class AnimationFlag : MonoBehaviour
 
         if (CheckAnimation("Attack"+player.currentAttackSeq))
         {
-            Debug.Log($"Attack{player.currentAttackSeq} Flag");
             player.canAttack = true;
+        }
+
+        if (CheckAnimation("Emote" + player.currentEmote))
+        {
+            player.endEmote = true;
         }
     }
 

@@ -135,7 +135,7 @@ GameObject:
   - component: {fileID: 435712}
   - component: {fileID: 435711}
   - component: {fileID: 435710}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Wall (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -342,7 +342,7 @@ GameObject:
   - component: {fileID: 104013890}
   - component: {fileID: 104013889}
   - component: {fileID: 104013888}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Wall (4)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -437,7 +437,7 @@ GameObject:
   - component: {fileID: 208755837}
   - component: {fileID: 208755836}
   - component: {fileID: 208755835}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Wall (9)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -598,7 +598,7 @@ GameObject:
   - component: {fileID: 300726334}
   - component: {fileID: 300726333}
   - component: {fileID: 300726332}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Wall (5)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -693,7 +693,7 @@ GameObject:
   - component: {fileID: 435473177}
   - component: {fileID: 435473176}
   - component: {fileID: 435473175}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Wall (7)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1264,7 +1264,7 @@ GameObject:
   - component: {fileID: 664076003}
   - component: {fileID: 664076002}
   - component: {fileID: 664076001}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Wall (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1595,6 +1595,7 @@ MonoBehaviour:
   mRotationSpeed: 50
   mFollowCameraForward: 1
   mTurnRate: 500
+  isMoving: 0
   mGravity: -30
   mJumpHeight: 5
 --- !u!82 &866485087
@@ -1746,10 +1747,11 @@ MonoBehaviour:
     m_Bits: 256
   mAudioSource: {fileID: 866485087}
   currentAttackSeq: 0
-  isAttacking: 0
+  currentEmote: 0
   canAttack: 0
   isRecharging: 0
   isEmoting: 0
+  endEmote: 0
 --- !u!1 &907484933
 GameObject:
   m_ObjectHideFlags: 0
@@ -1837,7 +1839,7 @@ GameObject:
   - component: {fileID: 926288472}
   - component: {fileID: 926288471}
   - component: {fileID: 926288470}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Wall (6)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2027,7 +2029,7 @@ MonoBehaviour:
   mCameraType: 4
   mask:
     serializedVersion: 2
-    m_Bits: 1
+    m_Bits: 1024
 --- !u!1 &1003398495
 GameObject:
   m_ObjectHideFlags: 0
@@ -2139,7 +2141,7 @@ GameObject:
   - component: {fileID: 1054381394}
   - component: {fileID: 1054381393}
   - component: {fileID: 1054381392}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Wall (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2544,7 +2546,7 @@ GameObject:
   - component: {fileID: 1935856434}
   - component: {fileID: 1935856433}
   - component: {fileID: 1935856432}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Wall (8)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2781,7 +2783,7 @@ GameObject:
   - component: {fileID: 2130710309}
   - component: {fileID: 2130710308}
   - component: {fileID: 2130710307}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Wall
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2936,6 +2938,7 @@ MonoBehaviour:
   mRotationSpeed: 50
   mFollowCameraForward: 1
   mTurnRate: 500
+  isMoving: 0
   mGravity: -30
   mJumpHeight: 1
 --- !u!114 &2145642071

@@ -21,11 +21,13 @@ public class PlayerMovement : MonoBehaviour
     private float hInput;
     private float vInput;
     private float speed;
-    private float currentAnimationFloat;
     private bool jump = false;
     private bool crouch = false;
+    public bool isMoving;
     public float mGravity = -30.0f;
     public float mJumpHeight = 1.0f;
+
+    //value used to slowly transition movement animations;
     private float lerpValue = 0;
 
     private Vector3 mVelocity = new Vector3(0.0f, 0.0f, 0.0f);
@@ -61,6 +63,7 @@ public class PlayerMovement : MonoBehaviour
 
         speed = mWalkSpeed;
 
+        //slowly transition to sprint animation
         if (Input.GetKey(KeyCode.LeftShift))
         {
             speed = mWalkSpeed * 2.0f;
@@ -68,8 +71,20 @@ public class PlayerMovement : MonoBehaviour
         }
         else
         {
+            //slowly transition from sprint to walk animation
             lerpValue = Mathf.Lerp(lerpValue,vInput/2,0.1f);
         }
+
+        //for the emote state to check if the player wants to move
+        if(hInput + vInput != 0)
+        {
+            isMoving = true;
+        }
+        else
+        {
+            isMoving = false;
+        }
+            
 
         if (Input.GetKeyDown(KeyCode.Space))
         {
@@ -112,9 +127,10 @@ public class PlayerMovement : MonoBehaviour
         forward.y = 0.0f;
 
         mCharacterController.Move(forward * vInput * speed * Time.deltaTime);
+
+        //set the animator parameter to the value
         mAnimator.SetFloat("PosX", 0);
         mAnimator.SetFloat("PosZ", lerpValue);
-        //vInput * speed / (2.0f * mWalkSpeed)
 
         if (jump)
         {
@@ -126,7 +142,7 @@ public class PlayerMovement : MonoBehaviour
     void Jump()
     {
         mAnimator.SetTrigger("Jump");
-        mVelocity.y += Mathf.Sqrt(mJumpHeight * -2f * mGravity);
+        mVelocity.y += Mathf.Sqrt(mJumpHeight * 2f * mGravity);
     }
 
     private Vector3 HalfHeight;

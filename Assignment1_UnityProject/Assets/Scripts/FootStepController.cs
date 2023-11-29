@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class FootStepController : MonoBehaviour
 {
-    AudioClip[] currentGroundFootSteps; //this array is being updated in Player.cs in DetectGroundType()
+    AudioClip[] currentGroundFootSteps;
     public AudioSource playerAudioSource;
     public Animator playerAnimator;
     [SerializeField]
@@ -12,6 +12,8 @@ public class FootStepController : MonoBehaviour
     , sandFootSteps, woodFootSteps;
     public LayerMask groundMask;
 
+
+    //setting the ranges for volume and pitch
     float minWalkVol = 0.1f;
     float maxWalkVol = 0.3f;
     float minWalkPitch = 0.5f;
@@ -25,7 +27,7 @@ public class FootStepController : MonoBehaviour
     void WalkFootStep() //this method is called from an animation event for walking
     {
         DetectGroundType();
-        int randIndex = Random.Range(0, currentGroundFootSteps.Length);
+        int randIndex = Random.Range(0, currentGroundFootSteps.Length); //randomize which sound clip to use
 
         //sets up the volume and pitch of the walking soundclip
         float randVol = Random.Range(minWalkVol, maxWalkVol);
@@ -54,11 +56,10 @@ public class FootStepController : MonoBehaviour
 
     void DetectGroundType()
     {
-        //works but not very consistent
-        //Physics.SphereCast(transform.position, 2, -transform.up, out RaycastHit hit, 2, groundMask);
-        Physics.Raycast(transform.position, -transform.up, out RaycastHit hit, 1, groundMask); //cast ray towards the ground to detect the ground type
+        //cast ray towards the ground to detect the ground type
+        Physics.Raycast(transform.position, -transform.up, out RaycastHit hit, 1, groundMask);
 
-        switch (hit.collider.tag) //switches the sound array depending on the ground type
+        switch (hit.collider.tag) //switches the sound array depending on the ground type detected
         {
             case "Concrete":
                 currentGroundFootSteps = concreteFootSteps;
