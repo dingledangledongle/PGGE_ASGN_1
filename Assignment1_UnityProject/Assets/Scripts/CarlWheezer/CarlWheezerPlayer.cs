@@ -13,7 +13,13 @@ public class CarlWheezerPlayer : MonoBehaviour
     public LayerMask mPlayerMask;
     public AudioSource mAudioSource;
 
+    public int currentAttackSeq;
+
     public bool isAttacking;
+    public bool canAttack;
+    public bool isRecharging;
+    public bool isEmoting;
+   
 
     void Start()
     {
@@ -32,25 +38,26 @@ public class CarlWheezerPlayer : MonoBehaviour
         if (Input.GetButtonDown("Fire1"))
         {
             isAttacking = true;
+            canAttack = true;
         }
 
         if (Input.GetKeyDown(KeyCode.R))
         {
-            mAnimator.SetTrigger("Recharge");
+            mFsm.SetCurrentState((int)CWStateType.RECHARGE);
         }
 
         //emotes
-        if (Input.GetKey(KeyCode.Alpha1))
+        if (Input.GetKeyDown(KeyCode.Alpha1))
         {
             mAnimator.SetTrigger("Emote1");
         }
 
-        if (Input.GetKey(KeyCode.Alpha2))
+        if (Input.GetKeyDown(KeyCode.Alpha2))
         {
             mAnimator.SetTrigger("Emote2");
         }
 
-        if (Input.GetKey(KeyCode.Alpha3))
+        if (Input.GetKeyDown(KeyCode.Alpha3))
         {
             mAnimator.SetTrigger("Emote3");
         }
