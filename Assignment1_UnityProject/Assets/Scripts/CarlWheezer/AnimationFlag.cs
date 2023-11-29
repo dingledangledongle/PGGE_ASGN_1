@@ -25,6 +25,11 @@ public class AnimationFlag : MonoBehaviour
         {
             player.endEmote = true;
         }
+
+        if (CheckAnimation("Jump"))
+        {
+            //player.mPlayerMovement.Jump();
+        }
     }
 
     bool CheckAnimation(string name)

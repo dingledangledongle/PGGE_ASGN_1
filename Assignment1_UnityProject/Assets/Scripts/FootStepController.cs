@@ -56,9 +56,10 @@ public class FootStepController : MonoBehaviour
 
     void DetectGroundType()
     {
+        RaycastHit hit;
         //cast ray towards the ground to detect the ground type
-        Physics.Raycast(transform.position, -transform.up, out RaycastHit hit, 1, groundMask);
-
+        Physics.Raycast(transform.position + Vector3.up, -transform.up, out hit, 3, groundMask);
+    
         switch (hit.collider.tag) //switches the sound array depending on the ground type detected
         {
             case "Concrete":

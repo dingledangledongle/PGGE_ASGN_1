@@ -37,11 +37,6 @@ public class PlayerMovement : MonoBehaviour
         mCharacterController = GetComponent<CharacterController>();
     }
 
-    void Update()
-    {
-        //HandleInputs();
-        //Move();
-    }
 
     private void FixedUpdate()
     {
@@ -91,11 +86,6 @@ public class PlayerMovement : MonoBehaviour
             jump = true;
         }
 
-        if (Input.GetKeyUp(KeyCode.Space))
-        {
-            jump = false;
-        }
-
         if (Input.GetKeyDown(KeyCode.Tab))
         {
             crouch = !crouch;
@@ -134,15 +124,19 @@ public class PlayerMovement : MonoBehaviour
 
         if (jump)
         {
-            Jump();
+            mAnimator.SetTrigger("Jump");
             jump = false;
         }
     }
 
-    void Jump()
+    public void Jump()
     {
-        mAnimator.SetTrigger("Jump");
-        mVelocity.y += Mathf.Sqrt(mJumpHeight * 2f * mGravity);
+        //Vector3 pos = new Vector3(transform.position.x, 0, transform.position.z);
+        Vector3 jump = new Vector3(0,50,0);
+        //mVelocity.y += Mathf.Sqrt(mJumpHeight * -2f * mGravity);
+        mCharacterController.Move(jump * Time.deltaTime);
+        //transform.position = pos;
+        Debug.Log(jump.y *Time.deltaTime);
     }
 
     private Vector3 HalfHeight;
@@ -169,5 +163,7 @@ public class PlayerMovement : MonoBehaviour
         mVelocity.y += mGravity * Time.deltaTime;
         if (mCharacterController.isGrounded && mVelocity.y < 0)
             mVelocity.y = 0f;
+
+        mCharacterController.SimpleMove(mVelocity);
     }
 }
